@@ -1,7 +1,7 @@
 LATEXMK = latexmk
 BUILD = build
 
-SETS := $(basename $(notdir $(wildcard set*.tex)))
+SETS := $(filter-out setN,$(basename $(notdir $(wildcard set*.tex))))
 
 .PHONY: all clean $(SETS)
 
