@@ -10,9 +10,85 @@
 
 \maketitle
 
-\section*{Problem 1}
+\paragraph{Note:}
+I generally disdain the use of natural units in undergraduate studies.
+For students having gone through a symbolic mess of a calculation,
+something as simple as dimensional analysis gives a good sanity check.
+And while this course is explicitly designed for graduate students,
+I would like to stand by this conviction and perform all calculations
+with explicit engineering dimensions and constants.
+I believe it is reasonably simple for the grader to convert it into natural units.
+I appreciate your understanding.
 
-...
+\section*{Problem 1}
+We use the following definitions:
+\[
+    A^\mu = (\frac{\phi}{c}, \vec{A}),\quad
+    F^{\mu\nu} = \partial^{[\mu} A^{\nu]},\quad
+    J^\mu = (-c\rho, \vec{J}),
+\]
+\[
+    E^i = -\partial_i \phi - \partial_t A^i = cF^{0i},\quad
+    B^i = \partial_j A^k - \partial_k A^j = F^{jk}\quad(\epsilon_{ijk}=+1).
+\]
+We start with the Lagrangian density:
+\[
+    \lagrdens = -\frac{1}{4\mu_0} F_{\alpha\beta}F^{\alpha\beta} + J_\alpha A^\alpha.
+\]
+We find the following partial derivative relations:
+\[
+    \frac{\partial(\partial_\alpha A_\beta)}{\partial(\partial_\mu A_\nu)}
+    = \delta^\mu_\alpha \delta^\nu_\beta
+    \Rightarrow
+    \frac{\partial(\partial^\alpha A^\beta)}{\partial(\partial_\mu A_\nu)}
+    = \eta^{\mu\alpha} \eta^{\nu\beta}
+\]
+\[
+    \Rightarrow
+    \frac{\partial}{\partial(\partial_\mu A_\nu)} (F_{\alpha\beta}F^{\alpha\beta})
+    = (\delta^\mu_\alpha \delta^\nu_\beta - \delta^\mu_\beta \delta^\nu_\alpha) F^{\alpha\beta}
+      + F_{\alpha\beta} (\eta^{\mu\alpha}\eta^{\nu\beta} - \eta^{\mu\beta}\eta^{\nu\alpha})
+    = 4F^{\mu\nu}
+\]
+Thus, the Euler-Lagrange equations are given by
+\[
+    0
+    = \partial_\mu \left(\frac{\partial\lagrdens}{\partial(\partial_\mu A_\nu)}\right)
+      - \frac{\partial\lagrdens}{\partial A_\nu}
+    = \partial_\mu \left(-\frac{1}{\mu_0} F^{\mu\nu}\right) - J^\nu
+\]
+\[
+    \therefore \partial_\mu F^{\mu\nu} = \mu_0 J^\nu
+\]
+\begin{enumerate}
+    \item $\nu = 0$:
+        $\partial_\mu F^{\mu 0} = -\frac{1}{c} \nablavec \cdot \vec{E}
+        \Rightarrow \nablavec\cdot\vec{E} = \frac{\rho}{\epsilon_0}$
+
+    \item $\nu = 1$:
+        $\partial_\mu F^{\mu 1}
+        = \left(\frac{1}{c}\partial_t\right)\left(\frac{E_x}{c}\right)
+          + \partial_y (-B^z) + \partial_z B^y
+        = \left(\frac{1}{c^2}\partial_t\vec{E} - \nablavec\times\vec{B}\right)^x$. \\
+        Thus, generally, $\nablavec\times\vec{B} = \mu_0\vec{J} + \frac{1}{c^2}\partial_t\vec{E}$.
+\end{enumerate}
+Furthermore, the Bianchi identity can be expressed as follows:
+\begin{enumerate}
+    \item
+        $\partial_{[0}F_{12]}
+        = \frac{1}{c}\partial_t B^z
+          + \partial_x \left(+\frac{E^y}{c}\right)
+          + \partial_y \left(-\frac{E^x}{c}\right)
+        = \frac{1}{c}\left(\partial_t \vec{B} + \nablavec\times\vec{E}\right)^z$. \\
+        Thus, generally, $\nablavec\times\vec{E} = -\partial_t\vec{B}$.
+
+    \item
+        $\partial_{[1}F_{23]}
+        = \partial_x B^x + \partial_y B^y + \partial_z B^z
+        = \nablavec\cdot\vec{B} = 0$.
+\end{enumerate}
+Thus, we see that the Euler-Lagrange equations as well as the Bianchi identity
+successfully reproduce the conventional Maxwell equations.\qed
 
 \section*{Problem 2}
 
