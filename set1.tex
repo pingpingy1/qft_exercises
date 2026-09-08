@@ -183,4 +183,143 @@ we find that
     -\sqrt{\frac{m^3c^5}{8\pi^3\hbar}} r^{-2} e^{-\frac{mc}{\hbar}r}.
 \]
 
+\section*{Problem 3}
+We first need to reconstruct the omitted natural constants in the formulae.
+With the ground truths
+\[
+    [\lagrdens] = [EL^{-3}]\quad\text{and}\quad
+    [\partial] = [L^{-1}],
+\]
+we insist that
+\[
+    [\lagrdens] = [\partial^\mu\phi\partial_\mu\phi] = [\phi^2 \cdot L^{-2}]
+    \Rightarrow [\phi] = [E^{1/2}L^{-1/2}].
+\]
+(Note: I could not decide whether this is the most useful convention.
+I also think it would be reasonable to insist that $\phi$ is dimensionless
+and multiply by appropriate natural constants to match the dimensions.
+This is just the convention that Gemini suggested, so it's its fault.)
+Moreover, we insist that $[m] = [M] = [EL^{-2}T^2]$, which implies
+\[
+    [m^2\phi^2] = [(EL^{-2}T^2)^2 \cdot EL^{-1}] = [E^3 L^{-5} T^4]
+    = [EL^{-3} \cdot (ET)^2 \cdot (LT^{-1})^{-2}]
+    = [\lagrdens\cdot\hbar^2c^{-2}].
+\]
+Thus, the reconstructed Lagrangian density is given by
+\[
+    \lagrdens = \frac{1}{2} \left(
+        -\partial_\mu\phi\partial^\mu\phi - \left(\frac{mc}{\hbar}\right)^2 \phi^2
+    \right).
+\]
+
+Now, we can actually start solving the problem.
+The kinetic term can be expanded as:
+\[
+    \lagrdens = \frac{1}{2}\left(
+        \left(\frac{\dot{\phi}}{c}\right)^2
+        - \left(\nablavec\phi\right)^2
+        - \left(\frac{mc}{\hbar}\right)^2\phi^2
+    \right),
+\]
+which lets us find the conjugate momentum field:
+\[
+    \pi(t,\vec{x})
+    := \frac{\partial\lagrdens}{\partial\dot{\phi}(t,\vec{x})}
+    = \frac{\dot{\phi}}{c^2}.
+\]
+Thus, the Hamiltonian functional is given by:
+\begin{align*}
+    H[\phi,\pi; t]
+    &= \int d^3\vec{x} \left(
+        \pi(t,\vec{x})\dot\phi(t,\vec{x}) - \lagrdens[\phi, \dot{\phi}]
+    \right) \\
+    &= \int d^3\vec{x} \frac{1}{2} \left(
+        \left(c\pi(t,\vec{x})\right)^2 + \left(\nablavec\phi(t,\vec{x})\right)^2
+        + \left(\frac{mc}{\hbar}\phi(t,\vec{x})\right)^2
+    \right).
+\end{align*}
+
+We now write down the Heisenber equations of motion:
+\[
+    \frac{dA}{dt} = -\frac{1}{i\hbar} \left[ H[\phi,\pi;t], A \right].
+\]
+The equation for $\phi(t,\vec{x})$ is relatively straightforward:
+\begin{itemize}
+    \item $\left[\pi(t,\vec{y})^2, \phi(t,\vec{x})\right]
+        = \left\{\pi(t,\vec{y}), \left[\pi(t,\vec{y}), \phi(t,\vec{x})\right]\right\}
+        = -2i\hbar\delta^3(\vec{y}-\vec{x})\pi(t,\vec{y})$
+
+    \item $\left[\nablavec_y^2\phi(t,\vec{y}), \phi(t,\vec{x})\right]
+        = \nablavec_y^2 \left[\phi(t,\vec{y}), \phi(t,\vec{x})\right]
+        = 0$
+
+    \item $\left[\phi(t,\vec{y})^2, \phi(t,\vec{x})\right]
+        = \left\{\phi(t,\vec{y}), \left[\phi(t,\vec{y}), \phi(t,\vec{x})\right] \right\}
+        = 0$
+\end{itemize}
+\[
+    \therefore \dot{\phi}(t,\vec{x})
+    = -\frac{1}{i\hbar} \left[H[\phi,\pi;t], \phi(t,\vec{x})\right]
+    = -\frac{1}{i\hbar} \int d^3\vec{y} \left(
+        -i\hbar c^2 \delta^3(\vec{y}-\vec{x}) \pi(t,\vec{y})
+    \right)
+    = c^2\pi(t,\vec{x})
+\]
+
+The commutator relation with $\pi(t,\vec{x})$ is a bit more tedious:
+\begin{itemize}
+    \item $\left[\pi(t,\vec{y})^2, \pi(t,\vec{x})\right]
+        = \left\{\pi(t,\vec{y}), \left[\pi(t,\vec{y}), \pi(t,\vec{x})\right]\right\}
+        = 0$
+
+    \item $\left[\phi(t,\vec{y})^2, \pi(t,\vec{x})\right]
+        = \left\{\phi(t,\vec{y}), \left[\phi(t,\vec{y}), \pi(t,\vec{x})\right]\right\}
+        = 2i\hbar\delta^3(\vec{y}-\vec{x}) \phi(t,\vec{y})$
+
+    \item $\begin{aligned}[t]
+        &\left[\int d^3\vec{y} \left(\nablavec_y \phi(t,\vec{y})\right)^2, \pi(t,\vec{x})\right] \\
+        &= \left[
+            \oint_{bdry} d^2\vec{S_y} \cdot \left(\phi(t,\vec{y})\nablavec_y\phi(t,\vec{y})\right)
+            -\int d^3\vec{y} \phi(t,\vec{y})\nablavec_y^2\phi(t,\vec{y}),
+            \pi(t,\vec{x})
+        \right] \\
+        &= -\int d^3\vec{y} \left(
+            \phi(t,\vec{y})\nablavec_y^2\left[\phi(t,\vec{y}),\pi(t,\vec{x})\right]
+            + \left[\phi(t,\vec{y}),\pi(t,\vec{x})\right] \cdot \nablavec_y^2\phi(t,\vec{y})
+        \right) \\
+        &= -i\hbar \int d^3\vec{y} \left(
+            \phi(t,\vec{y})\nablavec_y^2\delta^3(\vec{y}-\vec{x})
+            + \delta^3(\vec{y}-\vec{x}) \nablavec_y^2\phi(t,\vec{y})
+        \right) \\
+        &= -i\hbar \left(
+            \oint_{bdry} d^2\vec{S_y} \cdot \left(\phi(t,\vec{y})\nablavec_y\delta^3(\vec{y}-\vec{x})\right)
+            - \int d^3\vec{y} \nablavec_y\phi(t,\vec{y}) \cdot \nablavec_y\delta^3(\vec{y}-\vec{x})
+            + \nablavec^2\phi(t,\vec{x})
+        \right) \\
+        &= i\hbar \left(
+            \int d^3\vec{y} \nablavec_y\phi(t,\vec{y}) \cdot \nablavec_y\delta^3(\vec{y}-\vec{x})
+            - \nablavec^2\phi(t,\vec{x})
+        \right) \\
+        &= i\hbar \left(
+            \oint_{bdry} d^2\vec{S_y} \cdot \left(\delta^3(\vec{y}-\vec{x})\nablavec_y\pi(t,\vec{y})\right)
+            - \int d^3\vec{y} \delta^3(t,\vec{y})\cdot\nablavec_y^2\phi(t,\vec{y})
+            - \nablavec^2\phi(t,\vec{x})
+        \right) \\
+        &= -2i\hbar \nablavec^2 \phi(t,\vec{x})
+    \end{aligned}$
+\end{itemize}
+\begin{align*}
+    \therefore \dot{\phi}(t,\vec{x})
+    &= -\frac{1}{i\hbar} \left[H[\phi,\pi;t], \pi(t,\vec{x})\right] \\
+    &= -\frac{1}{i\hbar} \left(
+        \int d^3\vec{y} \frac{1}{2}\left(\frac{mc}{\hbar}\right)^2\cdot 2i\hbar \delta^3(\vec{y}-\vec{x}) \phi(t,\vec{y})
+        + \frac{1}{2} \left(-2i\hbar \nablavec^2\phi(t,\vec{x})\right)
+    \right) \\
+    &= \left(\nablavec^2 - \left(\frac{mc}{\hbar}\right)^2\right) \phi(t,\vec{x})
+\end{align*}
+Combining these two, we recover the Klein-Gordon equation:
+\[
+    \left(\partial_\mu\partial^\mu - \left(\frac{mc}{\hbar}\right)^2\right) \phi(t,\vec{x}) = 0.
+\]
+
 \end{document}
