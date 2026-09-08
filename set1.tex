@@ -95,7 +95,90 @@ Thus, we see that the Euler-Lagrange equations as well as the Bianchi identity
 successfully reproduce the conventional Maxwell equations.\qed
 
 \section*{Problem 2}
-
-...
+From the special-relativistic identity $E^2 = \sqrt{\vec{p}^2c^2 + m^2c^4}$,
+we attempt to define the Hamiltonian operator as:
+\[
+    H \overset{?}{=} \sqrt{-\hbar^2c^2\nablavec^2 + m^2c^4}
+    = mc^2\sqrt{1-\left(\frac{\hbar}{mc}\nablavec\right)^2}.
+\]
+To transform this into a kernel function, i.e., find the function $K(\vec{x}, \vec{y})$ such that
+\[
+    (H\psi)(\vec{x}) = \int d^3\vec{y} K(\vec{x}, \vec{y}) \psi(\vec{y}),
+\]
+we utilize the Fourier transform:
+\[
+    \psi(\vec{x}) = \int d^3\vec{k} \psi_{\vec{k}} e^{i\vec{k}\cdot\vec{x}},\quad
+    \psi_{\vec{k}} = \int \frac{d^3\vec{x}}{(2\pi)^3} \psi(\vec{x}) e^{-i\vec{k}\cdot\vec{x}}.
+\]
+Substitution then yields:
+\begin{align*}
+    (H\psi)(\vec{x})
+    &= mc^2 \int d^3\vec{k} \psi_{\vec{k}} \sqrt{1 - \left(
+        \frac{\hbar}{mc}\nablavec
+    \right)^2} e^{i\vec{k}\cdot\vec{x}} \\
+    &= mc^2 \int d^3\vec{k} \psi_{\vec{k}} \sqrt{1-\left(\frac{\hbar\vec{k}}{mc}\right)^2} e^{i\vec{k}\cdot\vec{x}} \\
+    &= mc^2\int d^3\vec{k} \left(
+        \int\frac{d^3\vec{y}}{(2\pi)^3} \psi(\vec{y}) e^{-i\vec{k}\cdot\vec{y}}
+    \right) \sqrt{1-\left(\frac{\hbar\vec{k}}{mc}\right)^2} e^{i\vec{k}\cdot\vec{x}} \\
+    &= \int d^3\vec{y} \left(
+        mc^2 \int\frac{d^3\vec{k}}{(2\pi)^3}
+        \sqrt{1-\left(\frac{\hbar\vec{k}}{mc}\right)^2}
+        e^{i\vec{k}\cdot\left(\vec{x}-\vec{y}\right)}
+    \right) \psi(\vec{y})
+\end{align*}
+Thus, defining $\vec{r} := \vec{x} - \vec{y}$, we find that
+\begin{align*}
+    K(\vec{x}, \vec{y})
+    &= mc^2 \int\frac{d^3\vec{k}}{(2\pi)^3}
+        \sqrt{1 - \left(\frac{\hbar\vec{k}}{mc}\right)^2} e^{i\vec{k}\cdot\vec{r}} \\
+    &= \frac{m^4c^5}{8\pi^3\hbar^3}
+        \int d^3\vec{\kappa} \sqrt{1+\vec{\kappa}^2} e^{i\vec{\kappa}\cdot\vec{\rho}}
+    & \left(
+        \vec{\kappa} := \frac{\hbar\vec{k}}{mc},\quad
+        \vec{\rho} := \frac{mc\vec{r}}{\hbar}
+    \right) \\
+    &= \frac{m^4c^5}{8\pi^3\hbar^3} \int_0^\infty d\kappa \kappa^2\sqrt{1+\kappa^2}
+        \int_{-1}^1 d(\cos\theta) e^{i\kappa\rho\cos\theta}
+        \int_0^{2\pi} d\phi \\
+    &= \frac{m^4c^5}{2\pi^2\hbar^3\rho}
+        \int_0^\infty d\kappa \kappa\sqrt{1+\kappa^2}\sin\kappa\rho.
+\end{align*}
+Despite the obvious problem of convergence,
+we nevertheless attempt to sidestep the issue using appropriate Feynmann tricks.
+\begin{align*}
+    K(\vec{x}, \vec{y})
+    &= \frac{m^4c^5}{2\pi^2\hbar^3\rho}
+        \int_0^\infty d\kappa \left(
+            \frac{\kappa^3}{\sqrt{1+\kappa^2}}
+            + \frac{\kappa}{\sqrt{1+\kappa^2}}
+        \right) \sin\kappa\rho \\
+    &= \frac{m^4c^5}{2\pi^2\hbar^3\rho} \left(
+        \frac{d^3}{d\rho^3} - \frac{d}{d\rho}
+    \right) \int_0^\infty d\kappa \frac{\sin\kappa\rho}{\sqrt{1+\kappa^2}} \\
+    &= \frac{m^4c^5}{2\pi^2\hbar^3\rho} \left( K_0'''(\rho) - K_0'(\rho) \right),
+\end{align*}
+where $K_0(x)$ is the modified Bessel function of the second kind of order $0$.
+The last expression can be simplified using well-known recurrence relations:
+\[
+    K_0'(x) = -K_1(x),\quad
+    K_1'(x) = -K_0(x) - \frac{1}{x} K_1(x),\quad
+    K_2(x) = K_0(x) + \frac{2}{x} K_1(x).
+\]
+\[
+    \Rightarrow K_0'''(x) - K_0'(x) = -\frac{1}{x}K_2(x)
+\]
+\[
+    \therefore K(\vec{x}, \vec{y})
+    = -\frac{m^4c^5}{2\pi^2\hbar^3} \frac{K_2(\rho)}{\rho^2}
+    = -\frac{m^2c^3}{2\pi^2\hbar} \frac{K_2\left(\frac{mc}{\hbar}r\right)}{r^2}
+\]
+Notice the blatant nonlocality: $K(\vec{x}, \vec{y})$ has support arbitrarily far away from $\vec{x} = \vec{y}$!
+In fact, the asymptotic behavior $K_\alpha(x) \overset{x\rightarrow\infty}{\sim}
+\sqrt{\frac{\pi}{2x}}e^{-x}$,
+we find that
+\[
+    K(\vec{x}, \vec{y}) \overset{r\rightarrow\infty}{\sim}
+    -\sqrt{\frac{m^3c^5}{8\pi^3\hbar}} r^{-2} e^{-\frac{mc}{\hbar}r}.
+\]
 
 \end{document}
