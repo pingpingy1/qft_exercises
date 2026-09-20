@@ -27,7 +27,7 @@ We use the following definitions:
     F^{\mu\nu} = \partial^{[\mu} A^{\nu]},\quad
     J^\mu = (-c\rho, \vec{J}),\quad
     \partial_\mu = (\frac{1}{c}\partial_t, \nablavec),\quad
-    \partial^\mu = (-\frac{1}{c}\partial-t, \nablavec),\quad
+    \partial^\mu = (-\frac{1}{c}\partial_t, \nablavec),\quad
 \]
 \[
     E^i = -\partial_i \phi - \partial_t A^i
@@ -64,7 +64,7 @@ Thus, the Euler-Lagrange equations are given by
     = \partial_\mu \left(-\frac{1}{\mu_0} F^{\mu\nu}\right) - J^\nu
 \]
 \[
-    \therefore \partial_\mu F^{\mu\nu} = \mu_0 J^\nu
+    \therefore \partial_\mu F^{\mu\nu} = -\mu_0 J^\nu
 \]
 \begin{enumerate}
     \item $\nu = 0$:
@@ -156,7 +156,7 @@ we nevertheless attempt to sidestep the issue using appropriate Feynmann tricks.
         \right) \sin\kappa\rho \\
     &= \frac{m^4c^5}{2\pi^2\hbar^3\rho} \left(
         \frac{d^3}{d\rho^3} - \frac{d}{d\rho}
-    \right) \int_0^\infty d\kappa \frac{\sin\kappa\rho}{\sqrt{1+\kappa^2}} \\
+    \right) \int_0^\infty d\kappa \frac{\cos\kappa\rho}{\sqrt{1+\kappa^2}} \\
     &= \frac{m^4c^5}{2\pi^2\hbar^3\rho} \left( K_0'''(\rho) - K_0'(\rho) \right),
 \end{align*}
 where $K_0(x)$ is the modified Bessel function of the second kind of order $0$.
@@ -175,7 +175,7 @@ The last expression can be simplified using well-known recurrence relations:
     = -\frac{m^2c^3}{2\pi^2\hbar} \frac{K_2\left(\frac{mc}{\hbar}r\right)}{r^2}
 \]
 Notice the blatant nonlocality: $K(\vec{x}, \vec{y})$ has support arbitrarily far away from $\vec{x} = \vec{y}$!
-In fact, the asymptotic behavior $K_\alpha(x) \overset{x\rightarrow\infty}{\sim}
+In fact, using the asymptotic behavior $K_\alpha(x) \overset{x\rightarrow\infty}{\sim}
 \sqrt{\frac{\pi}{2x}}e^{-x}$,
 we find that
 \[
