@@ -186,12 +186,134 @@ we assert that the Lagrangian density $\lagrdens[\phi]$ must satisfy the followi
         $\lagrdens[\phi]\overset{(a,\Lambda)}{\mapsto} \lagrdens'[\phi'] = \lagrdens[\phi]$.
 
     \item \textbf{Reality}: $\lagrdens^\dagger = \lagrdens$
+        (abusing the dagger to denote complex conjugation as well).
 
     \item \textbf{Global $U(1)$ symmetry}:
         The Lagrangian density must be a function only of the ray of $\phi$,
         as the vectors in the ray correspond to the same physical state.
         That is, it must be invariant under $\phi \mapsto e^{i\alpha} \phi$.
-\end{itemize}
 
+    \item \textbf{Locality}:
+        The Lagrangian density must be a function only of powers of $\phi$,
+        derivatives of $\phi$, or their complex conjugate.
+\end{itemize}
+With the lowest nontrivial order 2 for each $\phi$ and $\partial_\mu \phi$,
+one naturally obtains the free field theory:
+\[
+    \lagrdens = -\partial_\mu\phi^\dagger\partial^\mu\phi
+        - \left(\frac{mc}{\hbar}\right)^2 \phi^\dagger\phi.
+\]
+(The \emph{free field} qualifier will be verified below by the mode expansions.)
+
+For the purposes of calculus of variation to obtain the equations of motion,
+we must treat $\phi(t,\vec{x})$ and $\phi^\dagger(t,\vec{x})$ as independent degrees of freedom.
+Note that we still have the Klein-Gordon equation:
+\[
+    0
+    = \partial^\mu\left(
+        \frac{\partial\lagrdens}{\partial\left(\partial_\mu\phi^\dagger\right)}
+    \right) - \frac{\partial\lagrdens}{\partial\phi^\dagger}
+    = -\left(\square + \left(\frac{mc}{\hbar}\right)^2\right)\phi.
+\]
+
+\noindent
+(b) The Lagrangian density can be expanded as:
+\[
+    \lagrdens = \left(
+        \frac{1}{c^2} \dot{\phi}^\dagger(t,\vec{x})\dot{\phi}(t,\vec{x})
+        - \nablavec\phi^\dagger(t,\vec{x}) \cdot \nablavec\phi(t,\vec{x})
+        - \left(\frac{mc}{\hbar}\right)^2 \phi^\dagger(t,\vec{x})\phi(t,\vec{x})
+    \right)
+\]
+
+The canonical momenta are found as:
+\[
+    \pi(t,\vec{x})
+    = \frac{\partial\lagrdens}{\partial\dot{\phi}}
+    = \frac{\dot{\phi}^\dagger(t,\vec{x})}{c^2},\quad
+    \pi^\dagger(t,\vec{x})
+    = \frac{\partial\lagrdens}{\partial\dot{\phi}^\dagger}
+    = \frac{\dot{\phi}(t,\vec{x})}{c^2}.
+\]
+With these, we can write down the canonical commutation relations:
+\[
+    [\phi(t,\vec{x}),\phi(t,\vec{y})] = [\phi(t,\vec{x}),\phi^\dagger(t,\vec{y})]
+    = [\phi^\dagger(t,\vec{x}),\phi^\dagger(t,\vec{y})] = 0,
+\]
+\[
+    [\pi(t,\vec{x}),\pi(t,\vec{y})] = [\pi(t,\vec{x}),\pi^\dagger(t,\vec{y})]
+    = [\pi^\dagger(t,\vec{x}),\pi^\dagger(t,\vec{y})] = 0,
+\]
+\[
+    [\phi(t,\vec{x}),\pi^\dagger(t,\vec{y})] = [\phi^\dagger(t,\vec{x}),\pi(t,\vec{y})]
+    = 0,
+\]
+\[
+    [\phi(t,\vec{x}),\pi(t,\vec{y})] = [\phi^\dagger(t,\vec{x}),\pi^\dagger(t,\vec{y})]
+    = i\hbar\delta^{(3)}(\vec{x}-\vec{y}).
+\]
+(Note: The last two relations are consistent, as $[\phi^\dagger,\pi^\dagger] = -[\phi,\pi]^\dagger$.)
+The same mode expansion schema as the free real scalar field theory lets us write:
+\[
+    \phi(t,\vec{x})
+    = \int d\Pi_{\vec{p}} \left(
+        a_{\vec{p}}e^{\frac{ip\cdot x}{\hbar}}
+        + b_{\vec{p}}^\dagger e^{-\frac{ip\cdot x}{\hbar}}
+    \right),\quad
+    \phi^\dagger(t,\vec{x})
+    = \int d\Pi_{\vec{p}} \left(
+        b_{\vec{p}}e^{\frac{ip\cdot x}{\hbar}}
+        + a_{\vec{p}}^\dagger e^{-\frac{ip\cdot x}{\hbar}}
+    \right),
+\]
+with $E_{\vec{p}}$ defined exactly the same as before.
+Because we no longer insist that $\phi$ be Hermitian ($\phi^\dagger=\phi$),
+we cannot conclude that $a_{\vec{p}} = b_{\vec{p}}$ and must treat them together.
+The same inverse Fourier (mode?) transform allows us to write:
+\[
+    a_{\vec{p}} = \int\frac{d^3\vec{x}\;\hbar c}{(2\pi\hbar)^{3/2}\sqrt{2E_{\vec{p}}}}
+        \left(
+            E_{\vec{p}}\phi(t,\vec{x}) + ic^2\pi^\dagger(t,\vec{x})
+        \right) e^{-\frac{ip\cdot x}{\hbar}},
+\]
+\[
+    b_{\vec{p}}^\dagger = \int\frac{d^3\vec{x}\;\hbar c}{(2\pi\hbar)^{3/2}\sqrt{2E_{\vec{p}}}}
+        \left(
+            E_{\vec{p}}\phi(t,\vec{x}) - ic^2\pi^\dagger(t,\vec{x})
+        \right) e^{\frac{ip\cdot x}{\hbar}},
+\]
+\[
+    b_{\vec{p}} = \int\frac{d^3\vec{x}\;\hbar c}{(2\pi\hbar)^{3/2}\sqrt{2E_{\vec{p}}}}
+        \left(
+            E_{\vec{p}}\phi^\dagger(t,\vec{x}) + ic^2\pi(t,\vec{x})
+        \right) e^{-\frac{ip\cdot x}{\hbar}},
+\]
+\[
+    a_{\vec{p}}^\dagger = \int\frac{d^3\vec{x}\;\hbar c}{(2\pi\hbar)^{3/2}\sqrt{2E_{\vec{p}}}}
+        \left(
+            E_{\vec{p}}\phi^\dagger(t,\vec{x}) - ic^2\pi(t,\vec{x})
+        \right) e^{\frac{ip\cdot x}{\hbar}}.
+\]
+Even more laborious calculations yield the commutation realtions of the mode operators:
+\[
+    [a_{\vec{p}},a_{\vec{p}'}] = [a_{\vec{p}},a_{\vec{p}'}^\dagger]
+    = [a_{\vec{p}}^\dagger,a_{\vec{p}'}^\dagger]
+    = [b_{\vec{p}},b_{\vec{p}'}] = [b_{\vec{p}},b_{\vec{p}'}^\dagger]
+    = [b_{\vec{p}}^\dagger,b_{\vec{p}'}^\dagger]
+    = 0,
+\]
+\[
+    [a_{\vec{p}},b_{\vec{p}'}] = [a_{\vec{p}},b_{\vec{p}'}^\dagger]
+    = [a_{\vec{p}}^\dagger,b_{\vec{p}'}] = [a_{\vec{p}}^\dagger,b_{\vec{p}'}^\dagger]
+    = 0,
+\]
+\[
+    [a_{\vec{p}},a_{\vec{p}'}^\dagger] = [b_{\vec{p}},b_{\vec{p}'}^\dagger]
+    = \delta^{(3)}(\vec{p} - \vec{p}').
+\]
+Thus, this algebra corresponds to \emph{two} independent harmonic oscillators per continuous label $\vec{p}$!
+In part (d), we will be able to show that the corresponding particles of $a$ and $b$
+will carry opposite-sign charges,
+justifying their relationship as \emph{antiparticles}.
 
 \end{document}
