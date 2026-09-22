@@ -1,0 +1,197 @@
+\documentclass[11pt]{article}
+
+\input{preamble}
+
+\title{\coursename (\coursecode)\\Problem Set 1}
+\author{\studentname}
+\date{\semester}
+
+\begin{document}
+
+\maketitle
+
+\paragraph{Note on units:}
+I generally disdain the use of natural units in undergraduate studies.
+For students having gone through a symbolic mess of a calculation,
+something as simple as dimensional analysis gives a good sanity check.
+And while this course is explicitly designed for graduate students,
+I would like to stand by this conviction and perform all calculations
+with explicit engineering dimensions and constants.
+I believe it is reasonably simple for the grader to convert it into natural units.
+I appreciate your understanding.
+
+During class, the professor has instructed us that the engineering dimensions of $\phi$
+must be determined such that $\lagrdens$ has dimensions $[E L^{-3}]$.
+This means $[\phi] = [E^{1/2} L^{-1/2}]$, and the Klein-Gordon equation is given by
+\[
+    \left(\square + \left(\frac{mc}{\hbar}\right)^2\right)\phi
+    = \left(
+        -\frac{1}{c^2}\partial_t^2
+        + \nablavec^2
+        + \left(\frac{mc}{\hbar}\right)^2
+    \right) \phi
+    = 0.
+\]
+Suppose further that the mode expansion is given as:
+\[
+    \phi(t,\vec{x}) = \int\frac{d^3\vec{p}}{(2\pi\hbar)^{3/2}} \mathcal{N}(E_{\vec{p}})
+    \left(
+        a_{\vec{p}} e^{\frac{ip\cdot x}{\hbar}}
+        + a_{\vec{p}}^\dagger e^{-\frac{ip\cdot x}{\hbar}},
+    \right)
+\]
+where $x^\mu = (ct, \vec{x})$, $p^\mu = (E_{\vec{p}}/c, \vec{p})$, and
+$E_{\vec{p}} = \sqrt{(mc^2)^2 + (\vec{p}c)^2}$.
+Insisting the simple commutation relation:
+\[
+    \left[a_{\vec{p}}, a_{\vec{p}'}\right] = \delta^{(3)}(\vec{p}-\vec{p}')
+\]
+implies that the normalization factor $\mathcal{N}(E_{\vec{p}})$ has dimensions $[E^{1/2} L]$, or
+\[
+    d\Pi_{\vec{p}}
+    := \frac{d^3\vec{p}}{(2\pi\hbar)^{3/2}} \mathcal{N}(E_{\vec{p}})
+    = \frac{d^3\vec{p}\; \hbar c}{(2\pi\hbar)^{3/2}\sqrt{2E_{\vec{p}}}}.
+\]
+
+\section*{Problem 3.1}
+Let us substitute the mode expansion into the definition of the Gaussian-smeared operator:
+\[
+    A(a)
+    = \frac{1}{(a\sqrt{\pi})^3} \int d\Pi_{\vec{p}} \int d^3\vec{x} \left(
+        a_{\vec{p}} e^{\frac{ip\cdot x}{\hbar}} + a_{\vec{p}}^\dagger e^{-\frac{ip\cdot x}{\hbar}}
+    \right) e^{-\vec{x}^2/a^2}.
+\]
+Here, because the time coordinate is zero, $p\cdot x = \vec{p}\cdot\vec{x}$.
+Thus, we can integrate the exponentials over the spatial coordinates first.
+\begin{align*}
+    \int d^3\vec{x} \exp\left(-\frac{\vec{x}^2}{a^2} + \frac{i\vec{p}\cdot\vec{x}}{\hbar}\right)
+    &= \int_0^\infty dr r^2 e^{-r^2/a^2} \int_{-1}^1 d(\cos\theta) \int_0^{2\pi} d\phi
+        e^{\frac{i|\vec{p}|r}{\hbar}\cos\theta} \\
+    &= \int_0^\infty dr r^2 e^{-r^2/a^2} \cdot 4\pi
+        \frac{\sin\frac{|\vec{p}|r}{\hbar}}{|\vec{p}|r/\hbar} \\
+    &= \frac{4\pi\hbar}{|\vec{p}|} \int_0^\infty dr r\sin\frac{|\vec{p}|r}{\hbar} e^{-r^2/a^2} \\
+    &= \frac{4\pi\hbar}{|\vec{p}|}
+        \left(-\hbar\frac{\partial}{\partial(|\vec{p}|)}\right)
+        \int_0^\infty dr \cos\frac{|\vec{p}|r}{\hbar} e^{-r^2/a^2} \\
+    &= \frac{4\pi\hbar^2}{|\vec{p}|}
+        \left(-\frac{\partial}{\partial(|\vec{p}|)}\right)
+        \frac{1}{2} \Re \int_{-\infty}^\infty dr \exp\left(
+            -\frac{r^2}{a^2} + \frac{i|\vec{p}|r}{\hbar}
+        \right) \\
+    &= \frac{2\pi\hbar^2}{|\vec{p}|}
+        \left(-\frac{\partial}{\partial(|\vec{p}|)}\right)
+        \Re \int_{-\infty}^\infty dr \exp\left(
+            -\frac{1}{a^2}\left(r - \frac{i|\vec{p}|a^2}{\hbar}\right)^2
+            -\frac{|\vec{p}|^2a^2}{4\hbar^2}
+        \right) \\
+    &= \frac{2\pi\hbar^2}{|\vec{p}|}
+        \left(-\frac{\partial}{\partial(|\vec{p}|)}\right)
+        \sqrt{\pi}a \cdot \exp\left(-\frac{|\vec{p}|^2 a^2}{4\hbar^2}\right) \\
+    &= (a\sqrt{\pi})^3 \exp\left(-\frac{|\vec{p}|^2 a^2}{4\hbar^2}\right)
+\end{align*}
+\[
+    \Rightarrow A(a)
+    = \int d\Pi_{\vec{p}} \left( a_{\vec{p}} + a_{\vec{p}}^\dagger \right)
+        \exp\left(-\frac{|\vec{p}|^2 a^2}{4\hbar^2}\right)
+\]
+
+Since $a_{\vec{p}}\ket{0} = \bra{0} a_{\vec{p}}^\dagger = 0$,
+this shows that $\braket{0 | A(a) | 0} = 0$.
+\begin{align*}
+    \Rightarrow \var A(a)
+    &= \braket{0 | A(a)^2 | 0} \\
+    &= \int d\Pi_{\vec{p}} \int d\Pi_{\vec{p}'}
+        \braket{0 | \left(
+            a_{\vec{p}}a_{\vec{p}'}
+            + a_{\vec{p}}a_{\vec{p}'}^\dagger
+            + a_{\vec{p}}^\dagger a_{\vec{p}'}
+            + a_{\vec{p}}^\dagger a_{\vec{p}'}^\dagger
+        \right) | 0} \exp \left(
+            -\frac{(|\vec{p}|^2 + |\vec{p}'|^2)a^2}{4\hbar^2}
+        \right) \\
+    &= \int d\Pi_{\vec{p}} \int d\Pi_{\vec{p}'}
+        \braket{0 | a_{\vec{p}}a_{\vec{p}'}^\dagger | 0} \exp \left(
+            -\frac{(|\vec{p}|^2 + |\vec{p}'|^2)a^2}{4\hbar^2}
+        \right) \\
+    &= \int d\Pi_{\vec{p}} \int d\Pi_{\vec{p}'}
+        \braket{0 | \left(
+            a_{\vec{p}'}^\dagger a_{\vec{p}}
+            + \delta^{(3)}(\vec{p} - \vec{p}')
+        \right) | 0} \exp \left(
+            -\frac{(|\vec{p}|^2 + |\vec{p}'|^2)a^2}{4\hbar^2}
+        \right) \\
+    &= \int\frac{d^3\vec{p}\; \hbar^2 c^2}{(2\pi\hbar)^3 \cdot 2E_{\vec{p}}}
+        \exp\left(-\frac{|\vec{p}|^2 a^2}{2\hbar^2}\right) \\
+    &= \int\frac{
+        d^3\vec{\kappa}\; \hbar^2 c^2 (\hbar/a)^3
+    }{
+        (2\pi\hbar)^3 \cdot 2\hbar c / a \; \sqrt{\vec{\kappa}^2 + (mca/\hbar)^2}
+    } e^{-\vec{\kappa}^2/2}
+            \qquad (\vec{\kappa} := \vec{p}a / \hbar) \\
+    &= \frac{\hbar c}{16\pi^3 a^2} \int d^3\vec{\kappa}
+        \frac{e^{-\vec{\kappa}^2/2}}{\sqrt{\vec{\kappa}^2 + (mca/\hbar)^2}} \\
+    &= \frac{\hbar c}{4\pi^2 a^2} \int_0^\infty d\kappa
+        \frac{\kappa^2 e^{-\kappa^2/2}}{\sqrt{\kappa^2 + (mca/\hbar)^2}}
+\end{align*}
+
+Let us define the dimensionless parameter $\mu := mca/\hbar$ and find the asymptotic behavior:
+\begin{itemize}
+    \item $\mu \gg 1$:
+        \begin{align*}
+            \var A(a)
+            &= \frac{\hbar c}{4\pi^2 a^2} \int d\kappa
+                \frac{\kappa^2}{\mu} e^{-\kappa^2/2} \left(
+                    1 + \left(\frac{\kappa}{\mu}\right)^2
+                \right)^{-1/2} \\
+            &= \frac{\hbar c}{4\pi^2 a^2 \mu} \int d\kappa
+                e^{-\kappa^2/2}\left(\kappa^2 - \frac{\kappa^4}{2\mu^2} + \cdots\right) \\
+            &\sim \frac{\hbar c}{\sqrt{32\pi^3}a^2 \mu} \left(1 + O(\mu^{-2})\right) \\
+            &= \left(\frac{\hbar^2}{\sqrt{32\pi^3} m}\right) a^{-3} \cdot \left(
+                1 + O\left(\left(\frac{mca}{\hbar}\right)^{-2}\right)
+            \right)
+        \end{align*}
+        Smearing over regions much larger than the correlation length of the field,
+        the average fluctuation inside the region scales like the volume of the region.
+        This can in understood in terms of field correlations decaying to zero at long distances,
+        rendering the fluctuations essentially independent between separated regions.
+
+    \item $\mu \ll 1$:
+        \begin{align*}
+            \var A(a)
+            &= \frac{\hbar c}{4\pi^2 a^2} \int d\kappa
+                \kappa e^{-\kappa^2/2} \left(
+                    1 + \left(\frac{\mu}{\kappa}\right)^2
+                \right)^{-1/2} \\
+            &= \frac{\hbar c}{4\pi^2 a^2} \int d\kappa
+                e^{-\kappa^2/2}\left(\kappa - \frac{\mu^2}{2\kappa} + \cdots\right) \\
+            &\sim \frac{\hbar c}{4\pi^2 a^2} \left(1 + O(\mu^2)\right) \\
+            &= \left(\frac{\hbar c}{4\pi^2}\right) a^{-2} \cdot \left(
+                1 + O\left(\left(\frac{mca}{\hbar}\right)^2\right)
+            \right)
+        \end{align*}
+        In regions much smaller than the correlation length,
+        any fluctuation of the field inside the region must have a short wavelength,
+        i.e., a large momentum of order $\hbar / a \gg mc$.
+        Thus, the particles are approximately massless,
+        and the field fluctuation follows a inverse-area law $a^{-2}$.
+\end{itemize}
+
+\section*{Problem 3.2}
+\noindent
+(a) For a complex scalar field $\phi : \mathbb{R}^{1,3} \rightarrow \mathbb{C}$,
+we assert that the Lagrangian density $\lagrdens[\phi]$ must satisfy the following conditions:
+\begin{itemize}
+    \item \textbf{Lorentz invariance}:
+        Upon any Poincar\'e transform $(a,\Lambda)$, the Lagrangian density must satisfy
+        $\lagrdens[\phi]\overset{(a,\Lambda)}{\mapsto} \lagrdens'[\phi'] = \lagrdens[\phi]$.
+
+    \item \textbf{Reality}: $\lagrdens^\dagger = \lagrdens$
+
+    \item \textbf{Global $U(1)$ symmetry}:
+        The Lagrangian density must be a function only of the ray of $\phi$,
+        as the vectors in the ray correspond to the same physical state.
+        That is, it must be invariant under $\phi \mapsto e^{i\alpha} \phi$.
+\end{itemize}
+
+
+\end{document}
