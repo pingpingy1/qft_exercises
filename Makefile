@@ -1,7 +1,7 @@
 LATEXMK = latexmk
 BUILD = build
 
-SETS := $(filter-out setN,$(basename $(notdir $(wildcard set*.tex))))
+SETS := $(filter-out setN,$(basename $(notdir $(wildcard set*.tex)))) spinor_index
 
 .PHONY: all clean $(SETS)
 
